@@ -31,6 +31,15 @@ minikube service cv --url
 ```
 kubectl apply -f cv-ingress.yaml
 ```
+> ingress.networking.k8s.io/cv-ingress created
+
+### Setting Our hosts file (this example is on Ubuntu using vs code editor):
+> ** First, because we use Minikube get external ip **
+> minikube ip
+> ** Next, setting hosts file using my minikube ip **
+> code /etc/hosts
+> ** add line (Ip is example depend on your computer) **
+> 192.168.99.100 subhandp.cv
 
 ### Verify that the Ingress controller is directing traffic:
 ```
