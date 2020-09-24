@@ -1,18 +1,32 @@
-# 1 Set up Ingress
+# NodePort Service, Load Balancer Service, and Ingress
 
-###  Create a Deployment:
+###  Create a Kubernetes Pod:
 ```
-kubectl create deployment cv --image=subhandp/tailwinddocker:latest
+kubectl create -f cv-pod.yaml
 ```
 > output:
-> deployment.apps/cv created
+> pod/cv-pod created
 
-### Expose the Deployment:
+### 1. Create NodePort Service:
 ```
-kubectl expose deployment cv --type=NodePort --port=80
+kubectl create -f cv-services.yaml
 ```
 > output:
-> service/cv exposed
+> service/cv-service created
+
+**Type and run to show url service**
+```
+minikube service cv-service
+```
+Example output:
+```
+|-----------|------------|-------------|-----------------------------|
+| NAMESPACE |    NAME    | TARGET PORT |             URL             |
+|-----------|------------|-------------|-----------------------------|
+| default   | cv-service |          80 | http://192.168.99.100:30036 |
+|-----------|------------|-------------|-----------------------------|
+```
+### 1. Create LoadBalancer Service:
 
 ### Verify the Service is created and is available on a node port:
 ```
