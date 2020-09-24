@@ -11,5 +11,5 @@ spec:
       paths:
       - path: /
         backend:
-          serviceName: cv
+          serviceName: cv-service
           servicePort: 80
