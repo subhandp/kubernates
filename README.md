@@ -4,17 +4,17 @@
 ```
 kubectl create -f cv-pod.yaml
 ```
-> output:
+output:
 > pod/cv-pod created
 
 ### 1. Create NodePort Service:
 ```
 kubectl create -f cv-services.yaml
 ```
-> output:
+output:
 > service/cv-service created
 
-**Type and run to show url service**
+**Type and running command to show url service**
 ```
 minikube service cv-service
 ```
@@ -26,28 +26,47 @@ Example output:
 | default   | cv-service |          80 | http://192.168.99.100:30036 |
 |-----------|------------|-------------|-----------------------------|
 ```
-### 1. Create LoadBalancer Service:
+### 2. Create LoadBalancer Service:
 
-### Verify the Service is created and is available on a node port:
+Create LoadBalancer same as we create NodePort the different is on Yaml service file we defined LoadBalancer type and get auto port
+
 ```
-kubectl get service cv
+kubectl create -f cv-services-load-balancer.yaml
+```
+output:
+> service/cv-service-load-balancer created
+
+**Type and running command to show url service**
+```
+minikube service cv-service-load-balancer
+```
+Example output:
+```
+|-----------|--------------------------|-------------|-----------------------------|
+| NAMESPACE |           NAME           | TARGET PORT |             URL             |
+|-----------|--------------------------|-------------|-----------------------------|
+| default   | cv-service-load-balancer |          80 | http://192.168.99.100:32053 |
+|-----------|--------------------------|-------------|-----------------------------|
+```
+Opened up on browser based on url we get
+
+### 3. Create Ingress Networking
+
+we use **cv-service** we had before to use in Ingress file yaml
+
+* Create the Ingress resource from yaml file by running the following command
+
+```
+kubectl create -f cv-ingress.yaml
 ```
 
-### Visit the service via NodePort:
+Output:
 ```
-minikube service cv --url
+ing.k8s.io/v1 Ingress
+ingress.networking.k8s.io/cv-ingress created
 ```
+* Setting Our hosts file (this example am us Ubuntu with vs code editor):
 
-> example output:
-> http://192.168.99.100:30183
-
-### Create the Ingress resource by running the following command:
-```
-kubectl apply -f cv-ingress.yaml
-```
-> ingress.networking.k8s.io/cv-ingress created
-
-### Setting Our hosts file (this example is on Ubuntu using vs code editor):
 - **First, because we use Minikube get external ip**
 > minikube ip
 - **Next, setting hosts file using my minikube ip**
@@ -60,5 +79,5 @@ kubectl apply -f cv-ingress.yaml
 curl subhandp.cv
 ```
 
-**or running from browser**
+**Or running from browser**
 
