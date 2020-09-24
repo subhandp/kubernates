@@ -52,7 +52,7 @@ Opened up on browser based on url we get
 
 ### 3. Create Ingress Networking
 
-we use **cv-service** we had before to use in Ingress file yaml
+Use **cv-service** we had before to use in Ingress file yaml
 
 * Create the Ingress resource from yaml file by running the following command
 
